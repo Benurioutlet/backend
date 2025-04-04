@@ -4,13 +4,21 @@ dotenv.config();
 import pkg from 'pg';
 const { Pool } = pkg;
 
-// ou, se preferir, combine em uma única linha:
-// import { Pool } from 'pg';
-
 import express from 'express';
+import cors from 'cors'; // ✅ importa o CORS
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// ✅ Configura o CORS
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://benurioutlet.github.io'
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+}));
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
